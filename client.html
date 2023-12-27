@@ -41,27 +41,27 @@
                 const acceptdMoves = {
                     ArrowUp(player) {
                         console.log('Moving Up')
-                        if(player.y-1>=0){
-                            player.y=player.y-1
+                        if (player.y - 1 >= 0) {
+                            player.y = player.y - 1
                         }
 
                     },
                     ArrowDown(player) {
                         console.log('Moving Down')
-                        if(player.y+1<screen.height){
-                            player.y=player.y+1
+                        if (player.y + 1 < screen.height) {
+                            player.y = player.y + 1
                         }
                     },
                     ArrowLeft(player) {
                         console.log('Moving Left')
-                        if(player.x-1>=0){
-                            player.x=player.x-1
+                        if (player.x - 1 >= 0) {
+                            player.x = player.x - 1
                         }
                     },
                     ArrowRight(player) {
                         console.log('Moving Right')
-                        if(player.x+1<screen.width){
-                            player.x=player.x+1
+                        if (player.x + 1 < screen.width) {
+                            player.x = player.x + 1
                         }
                     }
                 }
@@ -72,7 +72,7 @@
 
                 if (moveFunction) {
                     moveFunction(player)
-                }                
+                }
             }
             return {
                 movePlayer,
