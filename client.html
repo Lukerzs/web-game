@@ -18,104 +18,22 @@
 <body>
     <canvas id="screen" width="10" height="10"></canvas>
 
-    <script>
+    <script type="module">
+        import createGame from './game.js'
         const screen = document.getElementById('screen')
         const context = screen.getContext('2d')
+        import createKeyboardListener from './keyboard-listener.js'
 
 
-        const state = {
-            players: {
-                'player1': { x: 1, y: 1 },
-                'player2': { x: 9, y: 9 }
-            },
-            fruits: {
-                'fruits1': { x: 3, y: 1 }
-            }
-
-        }
-
-        function createGame() {
-            function movePlayer(command) {
-                console.log('game.movePlayer() Moving ${command.playerId} with ${command.keyPressed}')
-
-                const acceptdMoves = {
-                    ArrowUp(player) {
-                        console.log('Moving Up')
-                        if (player.y - 1 >= 0) {
-                            player.y = player.y - 1
-                        }
-
-                    },
-                    ArrowDown(player) {
-                        console.log('Moving Down')
-                        if (player.y + 1 < screen.height) {
-                            player.y = player.y + 1
-                        }
-                    },
-                    ArrowLeft(player) {
-                        console.log('Moving Left')
-                        if (player.x - 1 >= 0) {
-                            player.x = player.x - 1
-                        }
-                    },
-                    ArrowRight(player) {
-                        console.log('Moving Right')
-                        if (player.x + 1 < screen.width) {
-                            player.x = player.x + 1
-                        }
-                    }
-                }
-
-                const keyPressed = command.keyPressed
-                const player = state.players[command.playerId]
-                const moveFunction = acceptdMovess[keyPressed]
-
-                if (moveFunction) {
-                    moveFunction(player)
-                }
-            }
-            return {
-                movePlayer,
-                state
-            }
-        }
         const game = createGame()
+        game.addPlayer({playerId:'player1',playerX:0,playerY:0})
         const keyboardListerner = createKeyboardListener()
         keyboardListerner.subscribe(game.movePlayer)
 
 
-        function createKeyboardListener() {
-            const state = {
-                observers: []
-            }
-            function subscribe(observerFunction) {
-                state.observers.push(observerFunction)
-            }
-            function notifyAll(command) {
-                console.log(`Notifying ${state.observers.length} observers`)
-
-                for (const observerFunction of state.observers) {
-                    observerFunction(command)
-                }
-            }
-
-            document.addEventListener('keydown', handleKeyDown)
-
-            function handleKeyDown(event) {
-                const keyPressed = event.key
-                const command = {
-                    playerId: 'player1',
-                    keyPressed
-                }
-                notifyAll(command)
-            }
-            return {
-                subscribe
-            }
-        }
+        
 
         renderScreen()
-
         function renderScreen() {
 
             context.fillStyle = 'white'
